@@ -155,10 +155,6 @@ inoremap < <><left>
 inoremap ' ''<left>
 inoremap " ""<left>
 
-" Add line in normal mode.
-nnoremap <leader>o o<Esc>
-nnoremap <leader>O O<Esc>
-
 " PLUGINS CONFIGURATIONS
 
 " NERDTree configuration.
