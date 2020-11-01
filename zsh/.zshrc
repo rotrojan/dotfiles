@@ -122,4 +122,5 @@ alias la="l"
 
 eval $(thefuck --alias)
 export HISTCONTROL=ignoredups:erasedups
+export MANPAGER='nvim -R +":set ft=man" -'
 neofetch

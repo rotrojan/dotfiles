@@ -38,6 +38,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'simnalamburt/vim-mundo'
   Plug 'vim-airline/vim-airline'
   Plug 'vim-airline/vim-airline-themes'
+  Plug 'Valloric/YouCompleteMe'
 call plug#end()
 
 " MISCELLANEOUS
@@ -125,8 +126,7 @@ function! CheckLeftBuffers()
 endfunction
 
 " Open NERDTree on start.
-autocmd VimEnter * NERDTree | wincmd l
-
+autocmd VimEnter * if &filetype!=#'man' | NERDTree | wincmd l | endif 
 " KEY-BINDINGS
 
 " Make buffers navigation and management easier.
@@ -151,9 +151,6 @@ inoremap ( ()<left>
 inoremap [ []<left>
 inoremap { {}<left>
 inoremap {<CR> {<CR>}<ESC>O
-inoremap < <><left>
-inoremap ' ''<left>
-inoremap " ""<left>
 
 " PLUGINS CONFIGURATIONS
 
@@ -165,6 +162,7 @@ nnoremap <leader>n :NERDTreeToggle<CR>
 set undofile
 set undodir=~/.vim/undo
 let g:mundo_right = 1
+nnoremap <leader>m :MundoToggle<CR>
 
 " NERDCommenter configuration.
 let g:NERDSpaceDelims = 1
@@ -183,8 +181,8 @@ let g:ale_lint_on_save = 1
 let g:ale_open_list = 1
 let g:ale_completion_enabled = 1
 let g:ale_list_window_size = 3
-let $C_INCLUDE_PATH='./includes:./include:../includes:../include:../../includes:
-\../../include'
+" let $C_INCLUDE_PATH='./includes:./include:../includes:../include:../../includes:
+" \../../include:./'
 
 " 42header configuration.
 command! Stdheader FortyTwoHeader
