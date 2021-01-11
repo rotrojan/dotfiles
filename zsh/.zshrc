@@ -68,8 +68,7 @@ ZSH_THEME="gruvbox"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-syntax-highlighting vi-mode tmux)
-ZSH_TMUX_AUTOSTART=true
+plugins=(git zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -114,6 +113,7 @@ alias feh="feh --scale"
 alias selfie="mpv av://v4l2:/dev/video0 --profile=low-latency --untimed"
 alias ls="exa --group-directories-first"
 alias la="l"
+set -o vi
 
 # To backup easily dotfiles, create and init a git bare repository with 
 # mkdir -p dotfiles && git init --bare $HOME/dotfiles
@@ -122,5 +122,11 @@ alias la="l"
 
 eval $(thefuck --alias)
 export HISTCONTROL=ignoredups:erasedups
-export MANPAGER='nvim -R +":set ft=man" -'
+# export MANPAGER='nvim -R +":set ft=man" -'
+# if [[ ! $TERM =~ screen ]]; then
+    # exec tmux
+# fi
+#if [[ ! $TERM =~ xterm-termite ]]; then
+#	exec xprop -set WM_NAME "termite"
+#fi
 neofetch

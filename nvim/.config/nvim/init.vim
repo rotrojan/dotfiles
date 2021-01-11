@@ -48,7 +48,8 @@ set mouse=a
 set clipboard=unnamed,unnamedplus
 set scrolloff=5
 set splitbelow splitright
-set nowrap
+" set nowrap
+set noswapfile
 set ignorecase smartcase tagcase=followscs
 let mapleader=" "
 
@@ -138,9 +139,9 @@ noremap <A-l> <C-w><Right>
 noremap <A-h> <C-w><Left>
 noremap <A-k> <C-w><Up>
 noremap <A-j> <C-w><Down>
-noremap <A-s> <C-w>r
+noremap <A-r> <C-w>r
 noremap <A-v> <C-w>t<C-w>H
-noremap <A-h> <C-w>t<C-w>K
+noremap <A-s> <C-w>t<C-w>K
 noremap <A-i> :vertical resize +1<CR>
 noremap <A-d> :vertical resize -1<CR>
 noremap <C-A-i> :resize +1<CR>
@@ -179,7 +180,7 @@ let g:ale_lint_on_insert_leave = 0
 let g:ale_lint_on_enter = 0
 let g:ale_lint_on_save = 1
 let g:ale_open_list = 1
-let g:ale_completion_enabled = 1
+let g:ale_completion_enabled = 0
 let g:ale_list_window_size = 3
 " let $C_INCLUDE_PATH='./includes:./include:../includes:../include:../../includes:
 " \../../include:./'
