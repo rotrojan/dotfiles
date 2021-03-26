@@ -4,16 +4,16 @@
 # Path to your oh-my-zsh installation.
 export ZSH="/home/bigo/.oh-my-zsh"
 
-# #Set name of the theme to load --- if #set to "random", it will
+# Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="gruvbox"
 
-# #Set list of themes to pick from when loading at random
+# Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
 # a theme from this variable instead of looking in $ZSH/themes/
-# If #set to an empty array, this variable will have no effect.
+# If set to an empty array, this variable will have no effect.
 # ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
 
 # Uncomment the following line to use case-sensitive completion.
@@ -33,7 +33,7 @@ ZSH_THEME="gruvbox"
 # export UPDATE_ZSH_DAYS=13
 
 # Uncomment the following line if pasting URLs and other text is messed up.
-# DISABLE_MAGIC_FUNCTIONS=true
+# DISABLE_MAGIC_FUNCTIONS="true"
 
 # Uncomment the following line to disable colors in ls.
 # DISABLE_LS_COLORS="true"
@@ -45,6 +45,8 @@ ZSH_THEME="gruvbox"
 # ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
+# Caution: this setting can cause issues with multiline prompts (zsh 5.7.1 and newer seem to work)
+# See https://github.com/ohmyzsh/ohmyzsh/issues/5765
 # COMPLETION_WAITING_DOTS="true"
 
 # Uncomment the following line if you want to disable marking untracked files
@@ -68,7 +70,12 @@ ZSH_THEME="gruvbox"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-syntax-highlighting)
+plugins=(
+	git
+	vi-mode
+	colored-man-pages
+	zsh-syntax-highlighting
+	)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -80,15 +87,27 @@ source $ZSH/oh-my-zsh.sh
 # export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
-if [[ -n $SSH_CONNECTION ]]; then
-  export EDITOR='nvim'
-else
-  export EDITOR='nvim'
-fi
+# if [[ -n $SSH_CONNECTION ]]; then
+#   export EDITOR='vim'
+# else
+#   export EDITOR='mvim'
+# fi
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
+# Everything under this line will be run only in interactive sessions (i.e not
+# during a script).
+[ -z "$PS1" ] && return
+
+function cd {
+    builtin cd "$@" && exa --group-directories-first -a
+}
+
+export HISTCONTROL=ignoredups:erasedups
+EDITOR='nvim'
+VI_MODE_SET_CURSOR=true
+export KEYTIMEOUT=1
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
@@ -97,13 +116,9 @@ fi
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-
-# Everything under this line will be run only in interactive sessions (i.e not
-# during a script).
-[ -z "$PS1" ] && return
-function cd {
-    builtin cd "$@" && exa --group-directories-first -a
-}
+#
+mkdircd(){ mkdir "$1" && cd "$1" ; }
+gitadd() { git add $@ && git status ; }
 alias norminette="~/.norminette/norminette.rb"
 alias vim="nvim"
 alias vi="nvim"
@@ -113,20 +128,6 @@ alias feh="feh --scale"
 alias selfie="mpv av://v4l2:/dev/video0 --profile=low-latency --untimed"
 alias ls="exa --group-directories-first"
 alias la="l"
-set -o vi
-
-# To backup easily dotfiles, create and init a git bare repository with 
-# mkdir -p dotfiles && git init --bare $HOME/dotfiles
-# alias config='/usr/bin/git --git-dir=$HOME/dotfiles/ --work-tree=$HOME'
-# Laun
-
-eval $(thefuck --alias)
-export HISTCONTROL=ignoredups:erasedups
-# export MANPAGER='nvim -R +":set ft=man" -'
-# if [[ ! $TERM =~ screen ]]; then
-    # exec tmux
-# fi
-#if [[ ! $TERM =~ xterm-termite ]]; then
-#	exec xprop -set WM_NAME "termite"
-#fi
+alias gitlog='git log --graph --oneline'
 neofetch
+# alias gcc="clang"
