@@ -1,0 +1,35 @@
+#------------------------------------------------------------------------------#
+#  ____                 _____                                                  #
+# /\  _`\    __        /\  __`\          Simple X HotKey Daemon configuration  #
+# \ \ \L\ \ /\_\     __\ \ \/\ \                                               #
+#  \ \  _ <'\/\ \  /'_ `\ \ \ \ \        ~/.config/sxhkd/sxhkdrc               #
+#   \ \ \L\ \\ \ \/\ \L\ \ \ \_\ \                                             #
+#    \ \____/ \ \_\ \____ \ \_____\      modified by BigO, github.com/rotrojan #
+#     \/___/   \/_/\/___L\ \/_____/                                            #
+#                    /\____/             rotrojan@student.42.fr                #
+#                    \_/__/                                                    #
+#------------------------------------------------------------------------------#
+
+# Spawn terminal
+super + ctrl + Return
+	alacritty
+
+# Spawn application launcher
+super + space
+	rofi -show run
+
+# Spawn emoji selector
+super + alt + space
+	rofimoji
+
+# Increase / decrease screen brightness
+XF86MonBrightness{Down,Up}
+	light -{U,A} 10
+
+# Lock session
+shift + super + l
+	light-locker-command -l
+
+# Reload sxhkd
+super + Escape
+	pkill -USR1 -x sxhkd
