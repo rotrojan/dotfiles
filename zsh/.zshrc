@@ -129,5 +129,6 @@ alias selfie="mpv av://v4l2:/dev/video0 --profile=low-latency --untimed"
 alias ls="exa --group-directories-first"
 alias la="l"
 alias gitlog='git log --graph --oneline'
-neofetch
+# Added condition to not spawn neofetch in Nvim terminal.
+[ ! "$TERM" = xterm-256color ] && neofetch
 # alias gcc="clang"

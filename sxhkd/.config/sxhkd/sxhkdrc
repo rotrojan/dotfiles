@@ -14,6 +14,10 @@
 super + ctrl + Return
 	alacritty
 
+# Spawn web browser
+super + w
+	firefox
+
 # Spawn application launcher
 super + space
 	rofi -show run
