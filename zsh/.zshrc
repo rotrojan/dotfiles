@@ -119,7 +119,6 @@ export KEYTIMEOUT=1
 #
 mkdircd(){ mkdir "$1" && cd "$1" ; }
 gitadd() { git add $@ && git status ; }
-alias norminette="~/.norminette/norminette.rb"
 alias vim="nvim"
 alias vi="nvim"
 alias cp="cp -i"

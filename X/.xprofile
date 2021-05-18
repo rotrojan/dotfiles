@@ -1,2 +1,2 @@
 export PATH="${PATH}:${HOME}/.local/bin/"
-feh --bg-scale /home/bigo/Downloads/horizon_zero_dawm_wallpaper.jpg
+feh --no-fehbg --bg-scale /home/bigo/Pictures/horizon_zero_dawm_wallpaper.jpg
