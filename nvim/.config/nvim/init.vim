@@ -51,6 +51,7 @@ call plug#end()
 " MISCELLANEOUS
 
 colorscheme gruvbox
+set background=dark
 set mouse=a
 set clipboard=unnamed,unnamedplus
 set scrolloff=5
