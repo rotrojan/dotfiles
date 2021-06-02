@@ -38,13 +38,6 @@ call plug#begin('~/.vim/plugged')
 	Plug 'simnalamburt/vim-mundo'
 	Plug 'vim-airline/vim-airline'
 	Plug 'vim-airline/vim-airline-themes'
-	" if has('nvim')
-		" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-	" else
-		" Plug 'Shougo/deoplete.nvim'
-		" Plug 'roxma/nvim-yarp'
-		" Plug 'roxma/vim-hug-neovim-rpc'
-	" endif
 	Plug 'voldikss/vim-floaterm'
 call plug#end()
 
@@ -100,8 +93,8 @@ augroup END
 set number
 augroup numbertoggle
 	autocmd!
-	autocmd BufEnter,FocusGained,InsertLeave,WinEnter * if &rnu | set nornu | endif
-	autocmd BufLeave,FocusLost,InsertEnter,WinLeave * if &nu | set rnu | endif
+	autocmd BufEnter,FocusGained,InsertLeave,WinEnter * if &nu | set rnu | endif
+	autocmd BufLeave,FocusLost,InsertEnter,WinLeave * if &rnu | set nornu | endif
 augroup END
 
 " Help always displayed above.
@@ -109,43 +102,6 @@ augroup vimrc_help
 	autocmd!
 	autocmd BufEnter *.txt if &buftype == 'help' | wincmd K | endif
 augroup END
-
-" Open NERDTree on start.
-autocmd VimEnter * if &filetype!=#'man' | NERDTree | wincmd l | endif
-
-" Autoquit vim when all if only buffers are closed.
-" autocmd WinEnter * call s:CloseIfOnlyNerdTreeLeft()
-" function! s:CloseIfOnlyNerdTreeLeft()
-	" if exists("t:NERDTreeBufName")
-		" if bufwinnr(t:NERDTreeBufName) != -1
-			" if winnr("$") == 1
-				" q
-			" endif
-		" endif
-	" endif
-" endfunction
-autocmd BufEnter * call CheckLeftBuffers()
-function! CheckLeftBuffers()
-	if tabpagenr('$') == 1
-		let i = 1
-		while i <= winnr('$')
-			if getbufvar(winbufnr(i), '&buftype') == 'help' ||
-				\ getbufvar(winbufnr(i), '&buftype') == 'quickfix' ||
-				\ exists('t:NERDTreeBufName') &&
-				\ bufname(winbufnr(i)) == t:NERDTreeBufName ||
-				\ bufname(winbufnr(i)) == '__Mundo__' ||
-				\ bufname(winbufnr(i)) == '__Mundo_Preview__'
-				let i += 1
-			else
-				break
-			endif
-		endwhile
-		if i == winnr('$') + 1
-			qall
-		endif
-		unlet i
-	endif
-endfunction
 
 " KEY-BINDINGS
 
@@ -181,6 +137,10 @@ augroup END
 " NERDTree configuration.
 let g:NERDTreeGitStatusUseNerdFonts = 1
 nnoremap <leader>n :NERDTreeToggle<CR>
+" Open NERDTree on start.
+autocmd VimEnter * if &filetype!=#'man' | NERDTree | wincmd l | endif
+" Close NERDTree if no other buffer remains.
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 " Mundo configuration.
 set undofile
@@ -196,29 +156,6 @@ let g:airline_powerline_fonts = 1
 let g:airline#extensions#ale#enabled = 1
 set noshowmode
 
-" ALE configuration.
-let g:ale_lint_on_text_changed = 'never'
-let g:ale_lint_on_insert_leave = 0
-let g:ale_lint_on_enter = 0
-let g:ale_lint_on_save = 1
-let g:ale_open_list = 'on_save'
-augroup CloseLoclistWindowGroup
-	autocmd!
-	autocmd QuitPre * if empty(&buftype) | lclose | endif
-augroup END
-" augroup ResetALEWhenAllErrorsCorrected
-	" autocmd!
-	" autocmd BufWrite * ALEReset | echo toto
-" augroup END
-		" autocmd!
-		" autocmd QuickFixCmdPre * if (&buftype = 'quickfix') | ALEreset | endif
-let g:ale_completion_enabled = 0
-let g:ale_list_window_size = 3
-nnoremap <leader>r ALEReset<CR>
-
-" Deoplete configuration.
-let g:deoplete#enable_at_startup = 1
-
 " Floaterm configuration.
 " noremap <leader>t <C-\><C-n>:FloatermToggle<CR>
 let g:floaterm_keymap_toggle = '<C-T>'
@@ -228,8 +165,8 @@ let g:floaterm_height = 0.2
 
 " 42header configuration.
 " command! Stdheader FortyTwoHeader
-let b:fortytwoheader_user = "rotrojan"
-let b:fortytwoheader_mail = "rotrojan@student.42.fr"
+let g:fortytwoheader_user = "rotrojan"
+let g:fortytwoheader_mail = "rotrojan@student.42.fr"
 
 " Coc configuration
 " Set internal encoding of vim, not needed on neovim, since coc.nvim using some
